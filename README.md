@@ -15,3 +15,25 @@ A equipe deve entregar um arquivo compactado contendo:
 - O tutorial sobre a tecnologia e o video com a apresentação
 - Os programas de testes
 - Um video que demonstre o funcionamento dos programas de teste
+
+## Como usar
+
+- Instale o compilador do FlatBuffers
+```bash
+$ sudo apt install flatbuffers-compiler
+```
+
+- Compile o exemplo de mensagem do tipo ativo.fbs
+```bash
+$ flatc --python ativo.fbs
+```
+
+- Execute o codificador que irá gerar um arquivo com a mensagem codificada
+```bash
+$ python3 CODIFICADOR.py nome_do_arquivo
+```
+
+- Execute o decodificador que irá ler o arquivo com mensagem codificada e mostrar as informações lidas na tela
+```bash
+$ python3 DECODIFICADOR.py nome_do_arquivo
+```
