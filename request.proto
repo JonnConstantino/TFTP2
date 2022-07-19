@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package exemplo;
+
+message Request {
+  required int32 opcode = 1;
+  required string filename = 2;
+  required string mode = 3;
+}

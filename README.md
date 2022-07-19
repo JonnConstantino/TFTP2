@@ -23,17 +23,34 @@ A equipe deve entregar um arquivo compactado contendo:
 $ sudo apt install flatbuffers-compiler
 ```
 
-- Compile o exemplo de mensagem do tipo ativo.fbs
+- Converta as mensagens do tipo proto para o flatbuffers, por exemplo:
 ```bash
-$ flatc --python ativo.fbs
+$ flatc --proto *.proto
 ```
 
-- Execute o codificador que irá gerar um arquivo com a mensagem codificada
+- Compile um exemplo de mensagem do tipo fbs, por exemplo:
 ```bash
-$ python3 CODIFICADOR.py nome_do_arquivo
+$ flatc --python *.fbs
 ```
 
-- Execute o decodificador que irá ler o arquivo com mensagem codificada e mostrar as informações lidas na tela
+- Execute o codificador que irá gerar um arquivo para cada tipo (ack, request e data) de mensagem codificada
 ```bash
-$ python3 DECODIFICADOR.py nome_do_arquivo
+$ python3 CODIFICADOR.py
+```
+
+- Execute o decodificador que irá ler o arquivo com mensagem codificada e mostrar as informações lidas na tela, deve informar o tipo de mensagem sendo ack, req ou data
+```bash
+$ python3 DECODIFICADOR.py nome_do_arquivo tipo_mensagem
+```
+Exemplo:
+```bash
+$ python3 DECODIFICADOR.py data data
+```
+
+```bash
+$ python3 DECODIFICADOR.py ack ack
+```
+
+```bash
+$ python3 DECODIFICADOR.py request req
 ```
