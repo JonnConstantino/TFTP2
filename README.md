@@ -38,19 +38,19 @@ $ flatc --python *.fbs
 $ python3 CODIFICADOR.py
 ```
 
-- Execute o decodificador que irá ler o arquivo com mensagem codificada e mostrar as informações lidas na tela, deve informar o tipo de mensagem sendo ack, req ou data
+- Execute o decodificador que irá ler o arquivo com mensagem codificada e mostrar as informações lidas na tela, deve informar o tipo de mensagem sendo ack, req, data, error, list, mkdir ou move
 ```bash
-$ python3 DECODIFICADOR.py nome_do_arquivo tipo_mensagem
+$ python3 DECODIFICADOR.py --tipo_de_mensagem nome_do_arquivo
 ```
 Exemplo:
 ```bash
-$ python3 DECODIFICADOR.py data data
+$ python3 DECODIFICADOR.py --data data
 ```
 
 ```bash
-$ python3 DECODIFICADOR.py ack ack
+$ python3 DECODIFICADOR.py --list list
 ```
 
 ```bash
-$ python3 DECODIFICADOR.py request req
+$ python3 DECODIFICADOR.py --req req
 ```
