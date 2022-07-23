@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "error.proto";
+
+package exemplo;
+
+message List {
+  required int32 opcode = 1;
+  required string nome_original = 2;
+  required string novo_nome = 3;
+  required Error error = 4;
+}

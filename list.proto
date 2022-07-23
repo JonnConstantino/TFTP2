@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "error.proto";
+
+package exemplo;
+
+message List {
+  required int32 opcode = 1;
+  required string caminho = 2;
+  repeated Elementos elementos = 3;
+  optional Error error = 4;
+}
+
+message Elementos {
+    optional Arquivo arquivo = 1;
+    optional Pasta pasta = 2;
+}
+
+message Arquivo {
+    required string nome = 1;
+    required int32 tamanho = 2;
+}
+
+message Pasta {
+    required string nome = 1;
+}
