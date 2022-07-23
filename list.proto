@@ -7,7 +7,7 @@ package exemplo;
 message List {
   required int32 opcode = 1;
   required string caminho = 2;
-  repeated Elementos elementos = 3;
+  optional Elementos elementos = 3;
   optional Error error = 4;
 }
 
