@@ -5,17 +5,17 @@ def codifica_ack():
     # cria um construtor do flatbuffers
     builder = flatbuffers.Builder(1024)
 
-    # cria uma string no contrutor
+    # cria uma string no contrutor para que possar ser armazenado na mensagem
     block = builder.CreateString('block')
 
-    # inicia objeto Ativo criado anteriormente com arquivo .fbs
+    # inicia o objeto criado anteriormente com arquivo .fbs
     Ack.AckStart(builder)
 
-    # adiciona os atributos nome, id, valor e timestamp
+    # adiciona os atributos da mensagem
     Ack.AckAddOpcode(builder, 1)
     Ack.AckAddBlock(builder, block)
 
-    # finaliza o objeto Ativo
+    # finaliza o objeto
     msg = Ack.AckEnd(builder)
 
     # finaliza o construtor com a mensagem
@@ -32,15 +32,15 @@ def codifica_request():
     filename = builder.CreateString('exemplo.txt')
     mode = builder.CreateString('netascii')
 
-    # inicia objeto Ativo criado anteriormente com arquivo .fbs
+    # inicia o objeto criado anteriormente com arquivo .fbs
     Request.RequestStart(builder)
 
-    # adiciona os atributos nome, id, valor e timestamp
+    # adiciona os atributos da mensagem
     Request.RequestAddOpcode(builder, 1)
     Request.RequestAddFilename(builder, filename)
     Request.RequestAddMode(builder, mode)
 
-    # finaliza o objeto Ativo
+    # finaliza o objeto
     msg = Request.RequestEnd(builder)
 
     # finaliza o construtor com a mensagem
@@ -57,15 +57,15 @@ def codifica_data():
     data = builder.CreateString('DATA')
     block = builder.CreateString('block')
 
-    # inicia objeto Ativo criado anteriormente com arquivo .fbs
+    # inicia o objeto criado anteriormente com arquivo .fbs
     Data.DataStart(builder)
 
-    # adiciona os atributos nome, id, valor e timestamp
+    # adiciona os atributos
     Data.DataAddOpcode(builder, 1)
     Data.DataAddBlock(builder, block)
     Data.DataAddData(builder, data)
 
-    # finaliza o objeto Ativo
+    # finaliza o objeto
     msg = Data.DataEnd(builder)
 
     # finaliza o construtor com a mensagem
@@ -81,15 +81,15 @@ def codifica_error():
     # cria uma string no contrutor
     errormsg = builder.CreateString('ERROR message')
 
-    # inicia objeto Ativo criado anteriormente com arquivo .fbs
+    # inicia o objeto criado anteriormente com arquivo .fbs
     Error.ErrorStart(builder)
 
-    # adiciona os atributos nome, id, valor e timestamp
+    # adiciona os atributos
     Error.ErrorAddOpcode(builder, 1)
     Error.ErrorAddErrorcode(builder, 2)
     Error.ErrorAddErrmsg(builder, errormsg)
 
-    # finaliza o objeto Ativo
+    # finaliza o objeto
     msg = Error.ErrorEnd(builder)
 
     # finaliza o construtor com a mensagem
@@ -102,50 +102,64 @@ def codifica_list():
     # cria um construtor do flatbuffers
     builder = flatbuffers.Builder(1024)
 
-    # cria uma string no contrutor
+    # cria as strings no contrutor
     caminho = builder.CreateString('/home/')
     nome_arquivo = builder.CreateString('arquivo.txt')
     nome_pasta = builder.CreateString('pasta')
     errormsg = builder.CreateString('ERROR msg')
 
-    # inicia os objetos criados anteriormente com arquivo .fbs
+    # inicia o objeto criado anteriormente com arquivo .fbs
+    # do tipo arquivo
     Arquivo.ArquivoStart(builder)
 
     # adiciona os atributos
     Arquivo.ArquivoAddNome(builder, nome_arquivo)
     Arquivo.ArquivoAddTamanho(builder, 10)
 
+    # finaliza o objeto e armazena na variável arquivo
     arquivo = Arquivo.ArquivoEnd(builder)
 
+    # inicia o objeto do tipo pasta
     Pasta.PastaStart(builder)
 
+    # adiciona os atributos
     Pasta.PastaAddNome(builder, nome_pasta)
 
+    # finaliza o objeto e armazena na variável pasta
     pasta = Pasta.PastaEnd(builder)
 
+    # inicia o objeto do tipo pasta
     Elementos.ElementosStart(builder)
 
+    # adiciona os atributos
     Elementos.ElementosAddArquivo(builder, arquivo)
     Elementos.ElementosAddPasta(builder, pasta)
 
+    # finaliza o objeto e armazena na variável elementos
     elementos = Elementos.ElementosEnd(builder)
 
+    # inicia o objeto do tipo error
     Error.ErrorStart(builder)
 
+    # adiciona os atributos
     Error.ErrorAddOpcode(builder, 1)
     Error.ErrorAddErrorcode(builder, 2)
     Error.ErrorAddErrmsg(builder, errormsg)
 
+    # finaliza o objeto e armazena na variável error
     error = Error.ErrorEnd(builder)
 
+    # inicia o objeto do tipo list
     List.ListStart(builder)
 
+    # adiciona os atributos
     List.ListAddOpcode(builder, 1)
     List.ListAddCaminho(builder, caminho)
     List.ListAddElementos(builder, elementos)
     List.ListAddError(builder, error)
 
     # finaliza o objeto da mensagem
+    # com todos os outros objetos arquivo, pasta e erro dentro
     msg = List.ListEnd(builder)
 
     # finaliza o construtor com a mensagem
@@ -163,17 +177,21 @@ def codifica_mkdir():
     errormsg = builder.CreateString('ERROR msg')
 
     # inicia os objetos criados anteriormente com arquivo .fbs
-    
+    # do tipo error
     Error.ErrorStart(builder)
 
+    # adiciona os atributos
     Error.ErrorAddOpcode(builder, 1)
     Error.ErrorAddErrorcode(builder, 2)
     Error.ErrorAddErrmsg(builder, errormsg)
 
+    # finaliza o objeto e armazena na variável error
     error = Error.ErrorEnd(builder)
 
+    # inicia o objeto do tipo mkdir
     Mkdir.MkdirStart(builder)
 
+    # adiciona os atributos
     Mkdir.MkdirAddOpcode(builder, 1)
     Mkdir.MkdirAddCaminho(builder, caminho)
     Mkdir.MkdirAddError(builder, error)
@@ -199,14 +217,18 @@ def codifica_move():
     # inicia os objetos criados anteriormente com arquivo .fbs
     Error.ErrorStart(builder)
 
+    # adiciona os atributos
     Error.ErrorAddOpcode(builder, 1)
     Error.ErrorAddErrorcode(builder, 2)
     Error.ErrorAddErrmsg(builder, errormsg)
 
+    # finaliza o objeto e armazena na variável error
     error = Error.ErrorEnd(builder)
 
+    # inicia o objeto do tipo move
     Move.MoveStart(builder)
 
+    # adiciona os atributos
     Move.MoveAddOpcode(builder, 1)
     Move.MoveAddNomeOriginal(builder, nome_original)
     Move.MoveAddNovoNome(builder, novo_nome)
@@ -230,6 +252,7 @@ def escrever_arquivo(nomearquivo, buffer):
     except:
         print('Erro ao escrever no arquivo')
 
+# chama as funções pra escrever um arquivo para cada tipo
 escrever_arquivo('ack', codifica_ack())
 escrever_arquivo('req', codifica_request())
 escrever_arquivo('data', codifica_data())

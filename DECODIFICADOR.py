@@ -16,6 +16,7 @@ def decode_ack(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo ack
     msg = Ack.Ack.GetRootAsAck(buf, 0)
 
     # salva as informações em variáveis
@@ -31,6 +32,7 @@ def decode_req(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo request
     msg = Request.Request.GetRootAsRequest(buf, 0)
 
     # salva as informações em variáveis
@@ -48,6 +50,7 @@ def decode_data(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo data
     msg = Data.Data.GetRootAsData(buf, 0)
 
     # salva as informações em variáveis
@@ -65,6 +68,7 @@ def decode_error(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo error
     msg = Error.Error.GetRootAsError(buf, 0)
 
     # salva as informações em variáveis
@@ -82,6 +86,7 @@ def decode_list(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo list
     msg = List.List.GetRootAsList(buf, 0)
 
     # salva as informações em variáveis
@@ -105,6 +110,7 @@ def decode_mkdir(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo mkdir
     msg = Mkdir.Mkdir.GetRootAsMkdir(buf, 0)
 
     # salva as informações em variáveis
@@ -124,6 +130,7 @@ def decode_move(nomearquivo):
     # lê o arquivo e salva o conteúdo em um buffer
     buf = bufferiza(nomearquivo)
 
+    # lê o objeto do buffer para o tipo move
     msg = Move.Move.GetRootAsMove(buf, 0)
 
     # salva as informações em variáveis
@@ -141,7 +148,7 @@ def decode_move(nomearquivo):
     print('error: errorcode = ', error.Errorcode())
     print('error: errormsg = ', error.Errmsg())
 
-# lê o nome do arquivo como argumento da linha de comando
+# lê o nome do arquivo e o tipo da mensagem como argumento
 parser = argparse.ArgumentParser()
 parser.add_argument('nomearquivo', help='define o nome do arquivo a ser decodificado')
 parser.add_argument('--ack', help='mensagem do tipo ack', action='store_true')
@@ -153,6 +160,8 @@ parser.add_argument('--mkdir', help='mensagem do tipo mkdir', action='store_true
 parser.add_argument('--move', help='mensagem do tipo move', action='store_true')
 args = parser.parse_args()
 
+# de acordo com o argumento
+# escolhe a decodificação que deve ser feita no arquivo
 if args.ack:
     decode_ack(args.nomearquivo)
 elif args.req:
